@@ -1,42 +1,28 @@
 package com.devpedrogo.tre_testes.model;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Table(name = "usuarios", indexes = {
+    @Index(name = "idx_usuarios_cpf", columnList = "cpf"),
+    @Index(name = "idx_usuarios_nome_email", columnList = "nome, email")
+})
+@Getter
+@Setter
 public class UsuarioEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "nome", nullable = false, length = 150)
     private String nome;
+
+    @Column(name = "email", nullable = false, unique = true, length = 150)
     private String email;
+
+    @Column(name = "cpf", nullable = false, unique = true, length = 14)
     private String cpf;
-
-    // Constructors
-    public UsuarioEntity() {
-    }
-
-    public UsuarioEntity(String nome, String email, String cpf) {
-        this.nome = nome;
-        this.email = email;
-        this.cpf = cpf;
-    }
-
-    // Getters and Setters
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
 }
