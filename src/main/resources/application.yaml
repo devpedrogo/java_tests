@@ -3,6 +3,11 @@ spring:
     name: tre_testes
 
   datasource:
+    # "env": {
+    #             "DB_URL": "jdbc:postgresql://localhost:5432/nomebanco",
+    #             "DB_USERNAME": "",
+    #             "DB_PASSWORD": ""
+    #         }
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
