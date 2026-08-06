@@ -19,4 +19,15 @@ public interface IUsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
             @Param("nome") String nome,
             @Param("email") String email,
             @Param("cpf") String cpf);
+
+    @Query(value = """
+        SELECT * FROM usuarios u
+        WHERE (:nome IS NOT NULL AND :nome <> '' AND LOWER(u.nome) LIKE LOWER(CONCAT('%', :nome, '%')))
+           OR (:email IS NOT NULL AND :email <> '' AND LOWER(u.email) LIKE LOWER(CONCAT('%', :email, '%')))
+           OR (:cpf IS NOT NULL AND :cpf <> '' AND REGEXP_REPLACE(u.cpf, '\\D', '', 'g') = :cpf)
+        """, nativeQuery = true)
+    List<UsuarioEntity> consultarUsuarioPorNomeEmailOuCpf(
+            @Param("nome") String nome,
+            @Param("email") String email,
+            @Param("cpf") String cpf);
 }
