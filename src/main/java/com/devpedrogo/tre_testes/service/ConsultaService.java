@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.devpedrogo.tre_testes.dto.UsuarioResponseDto;
 import com.devpedrogo.tre_testes.model.UsuarioEntity;
 import com.devpedrogo.tre_testes.repository.IUsuarioRepository;
+import com.devpedrogo.tre_testes.repository.UsuarioDao;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class ConsultaService {
 
     private final IUsuarioRepository usuarioRepository;
+    private final UsuarioDao usuarioDao;
 
-    public ConsultaService(IUsuarioRepository usuarioRepository) {
+    public ConsultaService(IUsuarioRepository usuarioRepository, UsuarioDao usuarioDao) {
         this.usuarioRepository = usuarioRepository;
+        this.usuarioDao = usuarioDao;
     }
 
     public List<UsuarioResponseDto> consultarUsuarios() {
@@ -59,7 +62,7 @@ public class ConsultaService {
         String emailFiltro = isVazio(email) ? null : email.trim();
         String cpfFiltro = isVazio(cpf) ? null : cpf.replaceAll("\\D", "");
 
-        List<UsuarioEntity> entidades = usuarioRepository.consultarUsuarioPorNomeEmailOuCpf(
+        List<UsuarioEntity> entidades = usuarioDao.consultarUsuarioPorNomeEmailOuCpf(
                 nomeFiltro, 
                 emailFiltro, 
                 cpfFiltro
