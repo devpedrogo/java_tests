@@ -18,3 +18,7 @@ spring:
       ddl-auto: update
     show-sql: true
     
+api:
+  security:
+    # Lê a variável API_TOKEN que o VS Code injeta a partir do .env
+    token: ${API_TOKEN}
