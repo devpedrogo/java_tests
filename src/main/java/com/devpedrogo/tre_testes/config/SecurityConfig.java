@@ -15,6 +15,13 @@ public class SecurityConfig {
 
     private final ApiTokenFilter apiTokenFilter;
 
+    // Lista de rotas públicas que NÃO precisam de autenticação
+    private static final String[] SWAGGER_WHITELIST = {
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html"
+    };
+
     public SecurityConfig(ApiTokenFilter apiTokenFilter) {
         this.apiTokenFilter = apiTokenFilter;
     }
@@ -26,6 +33,7 @@ public class SecurityConfig {
             // APIs REST devem ser Stateless (não guardam sessão de usuário)
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+                .requestMatchers(SWAGGER_WHITELIST).permitAll()
                 .anyRequest().authenticated()
             )
             // Adiciona o ApiTokenFilter antes dos filtros de autenticação padrão do Spring

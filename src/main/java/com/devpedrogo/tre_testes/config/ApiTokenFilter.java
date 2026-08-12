@@ -20,6 +20,13 @@ public class ApiTokenFilter extends OncePerRequestFilter {
     @Value("${api.security.token}")
     private String tokenEsperado;
 
+    //O OncePerRequestFilter possui um método nativo chamado shouldNotFilter. Ele avisa ao filtro para nem ser executado quando a requisição for para o Swagger
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+        return path.startsWith("/swagger-ui") || path.startsWith("/v3/api-docs");
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, 
                                     HttpServletResponse response, 
