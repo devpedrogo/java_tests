@@ -14,11 +14,15 @@ import com.devpedrogo.tre_testes.service.ConsultaService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Pattern;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 
 @RestController
 @RequestMapping("/usuarios")
 @Tag(name = "Usuários", description = "API para consulta de usuários")
+@Validated
 public class UsuarioController {
 
     private final ConsultaService consultaService;
@@ -45,6 +49,7 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.OK)
     public List<UsuarioResponseDto> consultarUsuarioPorNomeEmailOuCpf(@RequestParam(required = false) String nome,
                                                                  @RequestParam(required = false) String email,
+                                                                 @Pattern(regexp = "\\d{11}", message = "O CPF deve conter exatamente 11 números")
                                                                  @RequestParam(required = false) String cpf) {
         return consultaService.consultarUsuarioPorNomeEmailOuCpf(nome, email, cpf);
     }

@@ -3,19 +3,32 @@ spring:
     name: tre_testes
 
   datasource:
-    # "env": {
-    #             "DB_URL": "jdbc:postgresql://localhost:5432/nomebanco",
-    #             "DB_USERNAME": "",
-    #             "DB_PASSWORD": ""
-    #         }
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    driver-class-name: org.postgresql.Driver
+    # Define o driver do SQLite
+    driver-class-name: org.sqlite.JDBC
+    # Cria um arquivo chamado banco_teste.db na raiz do seu projeto
+    url: jdbc:sqlite:banco_teste.db
+    username: sa
+    password: sa
+
+  sql:
+    init:
+      mode: always
+  # datasource:
+  #   # "env": {
+  #   #             "DB_URL": "jdbc:postgresql://localhost:5432/nomebanco",
+  #   #             "DB_USERNAME": "",
+  #   #             "DB_PASSWORD": ""
+  #   #         }
+  #   url: ${DB_URL}
+  #   username: ${DB_USERNAME}
+  #   password: ${DB_PASSWORD}
+  #   driver-class-name: org.postgresql.Driver
 
   jpa:
+    defer-datasource-initialization: true # Garante a ordem correta
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
     
 api:
