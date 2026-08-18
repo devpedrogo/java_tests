@@ -13,12 +13,12 @@ import com.devpedrogo.tre_testes.repository.UsuarioDao;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ConsultaService {
+public class UsuarioService {
 
     private final IUsuarioRepository usuarioRepository;
     private final UsuarioDao usuarioDao;
 
-    public ConsultaService(IUsuarioRepository usuarioRepository, UsuarioDao usuarioDao) {
+    public UsuarioService(IUsuarioRepository usuarioRepository, UsuarioDao usuarioDao) {
         this.usuarioRepository = usuarioRepository;
         this.usuarioDao = usuarioDao;
     }

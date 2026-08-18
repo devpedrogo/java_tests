@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devpedrogo.tre_testes.dto.UsuarioResponseDto;
-import com.devpedrogo.tre_testes.service.ConsultaService;
+import com.devpedrogo.tre_testes.service.UsuarioService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,10 +25,10 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class UsuarioController {
 
-    private final ConsultaService consultaService;
+    private final UsuarioService usuarioService;
 
-    public UsuarioController(ConsultaService consultaService) {
-        this.consultaService = consultaService;
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
     @GetMapping
@@ -38,7 +38,7 @@ public class UsuarioController {
     )  
     @ResponseStatus(HttpStatus.OK)
     public List<UsuarioResponseDto> consultarUsuarios() {
-        return consultaService.consultarUsuarios();
+        return usuarioService.consultarUsuarios();
     }
 
     @GetMapping("/filtro")
@@ -51,7 +51,7 @@ public class UsuarioController {
                                                                  @RequestParam(required = false) String email,
                                                                  @Pattern(regexp = "\\d{11}", message = "O CPF deve conter exatamente 11 números")
                                                                  @RequestParam(required = false) String cpf) {
-        return consultaService.consultarUsuarioPorNomeEmailOuCpf(nome, email, cpf);
+        return usuarioService.consultarUsuarioPorNomeEmailOuCpf(nome, email, cpf);
     }
 
     @GetMapping("/{nome}/{email}/{cpf}")
@@ -61,6 +61,6 @@ public class UsuarioController {
     )
     @ResponseStatus(HttpStatus.OK)
     public List<UsuarioResponseDto> consultarUsuarioPorNomeEmailECpf(@PathVariable String nome, @PathVariable String email, @PathVariable String cpf){
-        return consultaService.consultarUsuarioPorNomeEmailECpf(nome, email, cpf);
+        return usuarioService.consultarUsuarioPorNomeEmailECpf(nome, email, cpf);
     }
 }

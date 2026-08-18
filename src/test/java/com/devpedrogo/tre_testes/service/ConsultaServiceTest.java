@@ -25,7 +25,7 @@ class ConsultaServiceTest {
     private IUsuarioRepository usuarioRepository;
 
     @InjectMocks
-    private ConsultaService usuarioService;
+    private UsuarioService usuarioService;
 
     @Nested
     @DisplayName("Testes do método consultarUsuarios()")
